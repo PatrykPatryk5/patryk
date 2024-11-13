@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O mnie - Patryk Nowacki</title>
+    <link rel="icon" href="https://muzykant.xyz/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1e1e1e;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s;
+            color: #e0e0e0;
+        }
+
+        .container {
+            width: 360px;
+            border: 2px solid #000;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            background-color: #2a2a2a;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #e0e0e0;
+            font-size: 1.5em;
+        }
+
+        .profile-pic {
+            width: 118px;
+            height: 118px;
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            overflow: hidden; 
+            background-color: #444;
+        }
+
+        .social-media {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-media .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .social-media .icon:hover {
+            background-color: #0077ff;
+            color: #fff;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            margin-bottom: 10px;
+        }
+
+        nav ul li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav ul li a.active {
+            color: #0077ff;
+        }
+
+        .underline {
+            width: 33%;
+            height: 3px;
+            background: #0077ff;
+            position: absolute;
+            bottom: 0;
+            transition: left 0.3s;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section:not(.hidden) {
+            display: block;
+        }
+
+        .project-list, .contact-list {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .project-item {
+            background-color: #444;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="#" data-page="about" class="active">O mnie</a></li>
+                    <li><a href="#" data-page="projects">Projekty</a></li>
+                    <li><a href="#" data-page="contact">Kontakt</a></li>
+                </ul>
+            </nav>
+            <div class="underline"></div>
+        </header>
+        <div class="profile-pic">
+            <img src="https://muzykant.xyz/favicon.ico" alt="Logo Muzykant">
+        </div>
+        <div id="about" class="content-section">
+            <h2>Patryk Nowacki</h2>
+            <p>DISCORD: patryk_patryk_5</p>
+        </div>
+        <div id="projects" class="content-section hidden">
+            <h2>Projekty</h2>
+            <div class="project-list">
+                <div class="project-item">Muzykant - bot Discord z ponad 200 serwerami</div>
+                <div class="project-item">Muzykant Hosting - hosting gier, botów Discord, stron internetowych itp.</div>
+                <div class="project-item">Muzykant Services - wszykie inne usługi Muzykanta, np. pomoc z programowaniem</div>
+            </div>
+        </div>
+        <div id="contact" class="content-section hidden">
+            <h2>Kontakt</h2>
+            <p>DISCORD: patryk_patryk_5</p>
+        </div>
+        <div class="social-media">
+            <a href="#" class="icon"><i class="fab fa-discord"></i></a>
+            <a href="#" class="icon"><i class="fab fa-github"></i></a>
+            <a href="#" class="icon"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const navLinks = document.querySelectorAll("nav ul li a");
+            const sections = document.querySelectorAll(".content-section");
+            const underline = document.querySelector(".underline");
+
+            navLinks.forEach(link => {
+                link.addEventListener("click", (event) => {
+                    event.preventDefault();
+
+                    navLinks.forEach(link => link.classList.remove("active"));
+                    link.classList.add("active");
+
+                    sections.forEach(section => section.classList.add("hidden"));
+                    document.getElementById(link.getAttribute("data-page")).classList.remove("hidden");
+
+                    underline.style.left = link.offsetLeft + "px";
+                    underline.style.width = link.offsetWidth + "px";
+                });
+            });
+        });
+
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+            const icon = document.querySelector(".theme-toggle i");
+            icon.classList.toggle("fa-sun");
+            icon.classList.toggle("fa-moon");
+        }
+    </script>
+</body>
+</html>
